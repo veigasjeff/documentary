@@ -119,22 +119,23 @@
 import { NextResponse } from "next/server";
 import { getDocumentaries, getAllCategories } from "@/app/lib/data";
 
-function escapeXml(unsafe: string) {
-  if (!unsafe) return '';
-  return unsafe.replace(/[&<>"']/g, (char) => {
-    switch (char) {
-      case '&': return '&amp;';
-      case '<': return '&lt;';
-      case '>': return '&gt;';
-      case '"': return '&quot;';
-      case "'": return '&apos;';
-      default: return char;
-    }
-  });
+const xmlEntities = new Map([
+  ['&', '&amp;'],
+  ['<', '&lt;'],
+  ['>', '&gt;'],
+  ['"', '&quot;'],
+  ["'", '&apos;']
+]);
+
+function escapeXml(unsafe: string): string {
+  return unsafe.replace(/[&<>"']/g, (char) => xmlEntities.get(char) || char);
 }
 
-function safeCdata(content: string) {
-  return `<![CDATA[${content.replace(/]]>/g, ']]]]><![CDATA[>')}]]>`;
+function safeCdata(content: string): string {
+  const escaped = content
+    .replace(/]]>/g, ']]]]><![CDATA[>')
+    .replace(/[^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD]/g, '');
+  return `<![CDATA[${escaped}]]>`;
 }
 
 export async function GET() {
@@ -143,26 +144,27 @@ export async function GET() {
   const categories = getAllCategories();
 
   // Documentary URLs
-  const documentaryUrls = documentaries
-    .filter(doc => doc.slug && doc.thumbnailUrl) // Filter invalid entries
-    .map((doc) => {
-      const cleanTitle = escapeXml(doc.title);
-      const cleanDescription = safeCdata(escapeXml(doc.description));
-      const cleanThumbnail = escapeXml(doc.thumbnailUrl);
+  const documentaryUrls = documentaries.map((doc) => {
+    const clean = {
+      slug: encodeURIComponent(doc.slug),
+      title: escapeXml(doc.title),
+      description: safeCdata(escapeXml(doc.description)),
+      thumbnail: escapeXml(doc.thumbnailUrl)
+    };
 
-      return `
+    return `
     <url>
-      <loc>${baseUrl}/documentary/${encodeURIComponent(doc.slug)}</loc>
+      <loc>${baseUrl}/documentary/${clean.slug}</loc>
       <lastmod>${new Date().toISOString()}</lastmod>
       <changefreq>daily</changefreq>
       <priority>0.8</priority>
       <image:image>
-        <image:loc>${cleanThumbnail}</image:loc>
-        <image:title>${cleanTitle}</image:title>
-        <image:caption>${cleanDescription}</image:caption>
+        <image:loc>${clean.thumbnail}</image:loc>
+        <image:title>${clean.title}</image:title>
+        <image:caption>${clean.description}</image:caption>
       </image:image>
     </url>`;
-    }).join("\n");
+  }).join("\n");
 
   // Category URLs
   const categoryUrls = categories
