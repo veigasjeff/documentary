@@ -111,10 +111,16 @@
 //   });
 // }
 
+
+
+
+
+
 import { NextResponse } from "next/server";
 import { getDocumentaries, getAllCategories } from "@/app/lib/data";
 
 function escapeXml(unsafe: string) {
+  if (!unsafe) return '';
   return unsafe.replace(/[&<>"']/g, (char) => {
     switch (char) {
       case '&': return '&amp;';
@@ -127,35 +133,48 @@ function escapeXml(unsafe: string) {
   });
 }
 
+function safeCdata(content: string) {
+  return `<![CDATA[${content.replace(/]]>/g, ']]]]><![CDATA[>')}]]>`;
+}
+
 export async function GET() {
   const baseUrl = "https://bestdocumentaries.vercel.app";
   const documentaries = getDocumentaries();
   const categories = getAllCategories();
 
   // Documentary URLs
-  const documentaryUrls = documentaries.map((doc) => `
+  const documentaryUrls = documentaries
+    .filter(doc => doc.slug && doc.thumbnailUrl) // Filter invalid entries
+    .map((doc) => {
+      const cleanTitle = escapeXml(doc.title);
+      const cleanDescription = safeCdata(escapeXml(doc.description));
+      const cleanThumbnail = escapeXml(doc.thumbnailUrl);
+
+      return `
     <url>
-      <loc>${baseUrl}/documentary/${doc.slug}</loc>
+      <loc>${baseUrl}/documentary/${encodeURIComponent(doc.slug)}</loc>
       <lastmod>${new Date().toISOString()}</lastmod>
       <changefreq>daily</changefreq>
       <priority>0.8</priority>
       <image:image>
-        <image:loc>${doc.thumbnailUrl}</image:loc>
-        <image:title>${escapeXml(doc.title)}</image:title>
-        <image:caption>${escapeXml(doc.description)}</image:caption>
+        <image:loc>${cleanThumbnail}</image:loc>
+        <image:title>${cleanTitle}</image:title>
+        <image:caption>${cleanDescription}</image:caption>
       </image:image>
-    </url>
-  `).join("");
+    </url>`;
+    }).join("\n");
 
   // Category URLs
-  const categoryUrls = categories.map((category) => `
+  const categoryUrls = categories
+    .filter(category => category) // Filter empty categories
+    .map((category) => `
     <url>
-      <loc>${baseUrl}/category/${category.toLowerCase()}</loc>
+      <loc>${baseUrl}/category/${encodeURIComponent(category.toLowerCase())}</loc>
       <lastmod>${new Date().toISOString()}</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
-    </url>
-  `).join("");
+    </url>`)
+    .join("\n");
 
   // Static URLs
   const staticUrls = `
@@ -206,8 +225,7 @@ export async function GET() {
       <lastmod>${new Date().toISOString()}</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.6</priority>
-    </url>
-  `;
+    </url>`;
 
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -223,7 +241,7 @@ export async function GET() {
 
   return new NextResponse(sitemapXml, {
     headers: {
-      "Content-Type": "application/xml",
+      "Content-Type": "application/xml; charset=utf-8",
       "Cache-Control": "public, max-age=3600, s-maxage=86400",
     },
   });
