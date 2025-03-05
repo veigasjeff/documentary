@@ -1,10 +1,10 @@
-import { NextResponse } from "next/server"
-import { getDocumentaries, getAllCategories } from "@/app/lib/data"
+import { NextResponse } from "next/server";
+import { getDocumentaries, getAllCategories } from "@/app/lib/data";
 
 export async function GET() {
-  const baseUrl = "https://bestdocumentaries.vercel.app"
-  const documentaries = getDocumentaries()
-  const categories = getAllCategories()
+  const baseUrl = "https://bestdocumentaries.vercel.app";
+  const documentaries = getDocumentaries();
+  const categories = getAllCategories();
 
   // Create URL entries for all documentaries
   const documentaryUrls = documentaries
@@ -13,7 +13,7 @@ export async function GET() {
     <url>
       <loc>${baseUrl}/documentary/${doc.slug}</loc>
       <lastmod>${new Date().toISOString()}</lastmod>
-      <changefreq>weekly</changefreq>
+      <changefreq>daily</changefreq>
       <priority>0.8</priority>
       <image:image>
         <image:loc>${doc.thumbnailUrl}</image:loc>
@@ -21,9 +21,9 @@ export async function GET() {
         <image:caption>${doc.description}</image:caption>
       </image:image>
     </url>
-  `,
+  `
     )
-    .join("")
+    .join("");
 
   // Create URL entries for all categories
   const categoryUrls = categories
@@ -35,9 +35,9 @@ export async function GET() {
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
     </url>
-  `,
+  `
     )
-    .join("")
+    .join("");
 
   // Create URL entries for main pages
   const staticUrls = `
@@ -59,7 +59,37 @@ export async function GET() {
       <changefreq>monthly</changefreq>
       <priority>0.6</priority>
     </url>
-  `
+    <url>
+      <loc>${baseUrl}/contact</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+    </url>
+    <url>
+      <loc>${baseUrl}/privacy-policy</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+    </url>
+    <url>
+      <loc>${baseUrl}/terms-of-service</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+    </url>
+    <url>
+      <loc>${baseUrl}/cookie-policy</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+    </url>
+    <url>
+      <loc>${baseUrl}/dmca</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+    </url>
+  `;
 
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -71,13 +101,12 @@ export async function GET() {
     ${staticUrls}
     ${categoryUrls}
     ${documentaryUrls}
-  </urlset>`
+  </urlset>`;
 
   return new NextResponse(sitemapXml, {
     headers: {
       "Content-Type": "application/xml",
       "Cache-Control": "public, max-age=3600, s-maxage=86400",
     },
-  })
+  });
 }
-

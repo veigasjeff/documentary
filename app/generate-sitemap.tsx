@@ -32,7 +32,7 @@ export default async function generateSitemap() {
       <loc>${baseUrl}/category/${category.toLowerCase()}</loc>
       <lastmod>${new Date().toISOString()}</lastmod>
       <changefreq>monthly</changefreq>
-      <priority>0.7</priority>
+      <priority>0.9</priority>
     </url>
   `,
     )
@@ -49,7 +49,7 @@ export default async function generateSitemap() {
     <url>
       <loc>${baseUrl}/categories</loc>
       <lastmod>${new Date().toISOString()}</lastmod>
-      <changefreq>weekly</changefreq>
+      <changefreq>daily</changefreq>
       <priority>0.9</priority>
     </url>
     <url>
