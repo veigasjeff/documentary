@@ -63,7 +63,7 @@ const RAW_RUNTIME_STATE =
           ["class-variance-authority", "npm:0.7.1"],\
           ["clsx", "npm:2.1.1"],\
           ["cmdk", "virtual:f26804631bf9ffe86abcd52bc46d87bc63f15a2139c374718eae8eb05b3bac63974b1836bb868b7a54a8acb16d44deee2b5328b1f39bcf49da309f17c93e33de#npm:1.0.4"],\
-          ["date-fns", "npm:4.1.0"],\
+          ["date-fns", "npm:3.6.0"],\
           ["embla-carousel-react", "virtual:f26804631bf9ffe86abcd52bc46d87bc63f15a2139c374718eae8eb05b3bac63974b1836bb868b7a54a8acb16d44deee2b5328b1f39bcf49da309f17c93e33de#npm:8.5.1"],\
           ["input-otp", "virtual:f26804631bf9ffe86abcd52bc46d87bc63f15a2139c374718eae8eb05b3bac63974b1836bb868b7a54a8acb16d44deee2b5328b1f39bcf49da309f17c93e33de#npm:1.4.1"],\
           ["lucide-react", "virtual:f26804631bf9ffe86abcd52bc46d87bc63f15a2139c374718eae8eb05b3bac63974b1836bb868b7a54a8acb16d44deee2b5328b1f39bcf49da309f17c93e33de#npm:0.454.0"],\
@@ -2616,10 +2616,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["date-fns", [\
-      ["npm:4.1.0", {\
-        "packageLocation": "../../../C:/Users/admin/AppData/Local/Yarn/Berry/cache/date-fns-npm-4.1.0-764604ee0f-10c0.zip/node_modules/date-fns/",\
+      ["npm:3.6.0", {\
+        "packageLocation": "../../../C:/Users/admin/AppData/Local/Yarn/Berry/cache/date-fns-npm-3.6.0-e59d980978-10c0.zip/node_modules/date-fns/",\
         "packageDependencies": [\
-          ["date-fns", "npm:4.1.0"]\
+          ["date-fns", "npm:3.6.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -3492,7 +3492,7 @@ const RAW_RUNTIME_STATE =
           ["class-variance-authority", "npm:0.7.1"],\
           ["clsx", "npm:2.1.1"],\
           ["cmdk", "virtual:f26804631bf9ffe86abcd52bc46d87bc63f15a2139c374718eae8eb05b3bac63974b1836bb868b7a54a8acb16d44deee2b5328b1f39bcf49da309f17c93e33de#npm:1.0.4"],\
-          ["date-fns", "npm:4.1.0"],\
+          ["date-fns", "npm:3.6.0"],\
           ["embla-carousel-react", "virtual:f26804631bf9ffe86abcd52bc46d87bc63f15a2139c374718eae8eb05b3bac63974b1836bb868b7a54a8acb16d44deee2b5328b1f39bcf49da309f17c93e33de#npm:8.5.1"],\
           ["input-otp", "virtual:f26804631bf9ffe86abcd52bc46d87bc63f15a2139c374718eae8eb05b3bac63974b1836bb868b7a54a8acb16d44deee2b5328b1f39bcf49da309f17c93e33de#npm:1.4.1"],\
           ["lucide-react", "virtual:f26804631bf9ffe86abcd52bc46d87bc63f15a2139c374718eae8eb05b3bac63974b1836bb868b7a54a8acb16d44deee2b5328b1f39bcf49da309f17c93e33de#npm:0.454.0"],\
@@ -4019,7 +4019,7 @@ const RAW_RUNTIME_STATE =
           ["react-day-picker", "virtual:f26804631bf9ffe86abcd52bc46d87bc63f15a2139c374718eae8eb05b3bac63974b1836bb868b7a54a8acb16d44deee2b5328b1f39bcf49da309f17c93e33de#npm:8.10.1"],\
           ["@types/date-fns", null],\
           ["@types/react", "npm:19.0.10"],\
-          ["date-fns", "npm:4.1.0"],\
+          ["date-fns", "npm:3.6.0"],\
           ["react", "npm:18.3.1"]\
         ],\
         "packagePeers": [\
