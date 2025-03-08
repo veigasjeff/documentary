@@ -11,10 +11,10 @@ import { Separator } from "@/components/ui/separator"
 
 export default function FAQPage() {
   useEffect(() => {
-    // Client-side only code
-    window.analytics?.track('PageView')
-  }, [])
-  
+    if (typeof window !== "undefined" && (window as any).analytics) {
+      (window as any).analytics.track("PageView");
+    }
+  }, []);
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-2">Frequently Asked Questions</h1>
