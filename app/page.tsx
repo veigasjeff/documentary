@@ -4,6 +4,7 @@ import { getFeaturedDocumentaries, getRecentDocumentaries } from "@/lib/document
 import { DocumentaryCard } from "@/components/documentary-card"
 import { CategoryList } from "@/components/category-list"
 import { HeroSection } from "@/components/hero-section"
+import Script from "next/script"
 
 export default async function Home() {
   const featuredDocumentaries = await getFeaturedDocumentaries(4)
@@ -52,7 +53,7 @@ export default async function Home() {
       "query-input": "required name=search_term_string"
     }
   };
-    
+
   return (
     <div className="container mx-auto px-4 py-8">
             <Script
