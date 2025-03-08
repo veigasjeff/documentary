@@ -498,7 +498,7 @@ export default async function DocumentaryPage({ params }: { params: { slug: stri
       "name": "Best Documentaries",
       "logo": {
         "@type": "ImageObject",
-        "url": `${process.env.NEXT_PUBLIC_APP_URL}/logo.png`
+        "url": `https://bestdocumentaries.vercel.app/og_image.jpg`
       }
     }
   };

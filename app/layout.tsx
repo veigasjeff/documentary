@@ -43,7 +43,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Best Documentaries - Watch Free Documentaries Online",
     description: "Discover and watch the best documentaries from around the world for free.",
-    images: [`${process.env.NEXT_PUBLIC_APP_URL || "https://bestdocumentaries.vercel.app"}/og-image.jpg`],
+    images: [`${process.env.NEXT_PUBLIC_APP_URL || "https://bestdocumentaries.vercel.app"}/og_image.jpg`],
   },
   icons: {
     icon: "/favicon.ico",

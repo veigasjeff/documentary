@@ -37,7 +37,7 @@ export default async function Home() {
     },
     "image": {
       "@type": "ImageObject",
-      "url": "https://bestdocumentaries.vercel.app/og-image.jpg",
+      "url": "https://bestdocumentaries.vercel.app/og_image.jpg",
       "width": 1200,
       "height": 630,
       "caption": "Best Documentaries"
