@@ -421,7 +421,7 @@ import { RelatedDocumentaries } from "@/components/related-documentaries";
 import { Separator } from "@/components/ui/separator";
 import { formatDate } from "@/lib/utils";
 import type { Metadata } from "next";
-import Head from "next/head";
+// import Script from "next/script"
 
 export async function generateMetadata({
   params,
@@ -477,7 +477,9 @@ export default async function DocumentaryPage({ params }: { params: { slug: stri
     4
   );
 
-  const schema = {
+  
+   // ✅ Correct Schema Markup
+   const schema = {
     "@context": "https://schema.org",
     "@type": "VideoObject",
     "name": documentary.title,
@@ -501,13 +503,14 @@ export default async function DocumentaryPage({ params }: { params: { slug: stri
     }
   };
 
+
   return (
     <>
-    <Head>
-      <script type="application/ld+json">
-        {JSON.stringify(schema)}
-      </script>
-    </Head>
+     {/* ✅ Correct way to add JSON-LD schema */}
+     <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
