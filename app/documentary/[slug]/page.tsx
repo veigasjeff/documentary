@@ -421,6 +421,7 @@ import { RelatedDocumentaries } from "@/components/related-documentaries";
 import { Separator } from "@/components/ui/separator";
 import { formatDate } from "@/lib/utils";
 import type { Metadata } from "next";
+import Head from "next/head";
 
 export async function generateMetadata({
   params,
@@ -432,6 +433,7 @@ export async function generateMetadata({
   if (!documentary) {
     return {};
   }
+
 
   return {
     title: documentary.title,
@@ -475,7 +477,37 @@ export default async function DocumentaryPage({ params }: { params: { slug: stri
     4
   );
 
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": documentary.title,
+    "description": documentary.description,
+    "thumbnailUrl": documentary.thumbnailUrl,
+    "uploadDate": documentary.releaseDate,
+    "duration": `PT${documentary.duration}M`,
+    "embedUrl": documentary.videoUrl,
+    "contentUrl": documentary.videoUrl,
+    "author": {
+      "@type": "Person",
+      "name": documentary.director
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Best Documentaries",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${process.env.NEXT_PUBLIC_APP_URL}/logo.png`
+      }
+    }
+  };
+
   return (
+    <>
+    <Head>
+      <script type="application/ld+json">
+        {JSON.stringify(schema)}
+      </script>
+    </Head>
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
@@ -521,5 +553,6 @@ export default async function DocumentaryPage({ params }: { params: { slug: stri
         </div>
       </div>
     </div>
+    </>
   );
 }

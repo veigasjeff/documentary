@@ -9,8 +9,57 @@ export default async function Home() {
   const featuredDocumentaries = await getFeaturedDocumentaries(4)
   const recentDocumentaries = await getRecentDocumentaries(8)
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Best Documentaries",
+    "url": "https://bestdocumentaries.vercel.app",
+    "description": "Discover and watch the best documentaries from around the world for free. Explore a curated collection of educational and entertaining documentaries.",
+    "keywords": [
+      "documentaries",
+      "free documentaries",
+      "watch documentaries",
+      "documentary films",
+      "educational videos"
+    ],
+    "publisher": {
+      "@type": "Organization",
+      "name": "Best Documentaries",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://bestdocumentaries.vercel.app/favicon.ico"
+      }
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Best Documentaries Team"
+    },
+    "image": {
+      "@type": "ImageObject",
+      "url": "https://bestdocumentaries.vercel.app/og-image.jpg",
+      "width": 1200,
+      "height": 630,
+      "caption": "Best Documentaries"
+    },
+    "sameAs": [
+      "https://www.facebook.com/bestdocumentaries",
+      "https://twitter.com/bestdocs",
+      "https://www.instagram.com/bestdocumentaries"
+    ],
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://bestdocumentaries.vercel.app/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
+    
   return (
     <div className="container mx-auto px-4 py-8">
+            <Script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+
       <HeroSection />
 
       <section className="my-12">
