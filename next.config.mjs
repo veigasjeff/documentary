@@ -249,20 +249,12 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-   images: {
+  images: {
     remotePatterns: [
-      { protocol: "https", hostname: "res.cloudinary.com" },
-      { protocol: "https", hostname: "i.ytimg.com" },
-      { protocol: "https", hostname: "resizing.flixster.com" },
-      { protocol: "https", hostname: "whatsondisneyplus.b-cdn.net" },
-      { protocol: "https", hostname: "assets.fxnetworks.com" },
-      { protocol: "https", hostname: "ichef.bbci.co.uk" },
-      { protocol: "https", hostname: "ntvb.tmsimg.com" },
-      { protocol: "https", hostname: "m.media-amazon.com" },
-      { protocol: "https", hostname: "images.gem.cbc.ca" },
-      { protocol: "https", hostname: "akm-img-a-in.tosshub.com" },
-      { protocol: "https", hostname: "images.moneycontrol.com" },
-      { protocol: "https", hostname: "occ-0-8407-116.1.nflxso.net" },
+      {
+        protocol: 'https',
+        hostname: '**', // Allows ALL domains
+      },
     ],
   },
   webpack: (config) => {
