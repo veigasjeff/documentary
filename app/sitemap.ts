@@ -7,8 +7,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const documentaryUrls = documentaries.map((doc) => ({
     url: `${process.env.NEXT_PUBLIC_APP_URL || "https://bestdocumentaries.vercel.app"}/documentary/${doc.slug}`,
     lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: 0.8,
+    changeFrequency: "daily" as const,
+    priority: 0.9,
   }))
 
   return [

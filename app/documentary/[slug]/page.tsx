@@ -459,7 +459,7 @@ export async function generateMetadata({
       images: [documentary.thumbnailUrl],
     },
     alternates: {
-      canonical: `https://documentaries.vercel.app/watch/${params.slug}`, // ✅ Fixed this property
+      canonical: `https://bestdocumentaries.vercel.app/watch/${params.slug}`, // ✅ Fixed this property
     },
   };
 }
